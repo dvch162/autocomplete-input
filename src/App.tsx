@@ -3,6 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+
+export type AutocompleteItem = {
+  category: string;
+  id: string;
+  name: string;
+  value: number;
+};
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -32,4 +40,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
