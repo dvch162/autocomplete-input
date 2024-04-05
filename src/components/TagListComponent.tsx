@@ -8,14 +8,14 @@ interface TagListComponentProps {
 
 const TagListComponent: React.FC<TagListComponentProps> = ({ tags, onRemove }) => {
   return (
-    <div>
-      {tags.map((item, index) => (
-        <div key={item.id}>
-          {item.name}
-          <button onClick={() => onRemove(index)}>Remove</button>
-        </div>
-      ))}
-    </div>
+    <div className="tag-list-container">
+    {tags.map((item: AutocompleteItem, index: number) => (
+      <div className="tag-item" key={item.id}>
+        {item.name}
+        <button onClick={() => onRemove(index)}>x</button>
+      </div>
+    ))}
+  </div>
   );
 };
 

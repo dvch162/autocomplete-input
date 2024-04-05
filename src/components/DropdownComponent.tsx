@@ -10,7 +10,7 @@ interface DropdownComponentProps {
 
 const DropdownComponent: React.FC<DropdownComponentProps> = ({ data, isLoading, onItemClick, openDropdown }) => {
   return (
-    <div className={`drop_down_container ${openDropdown ? 'display' : 'display_none'}`}>
+    <div className={`dropdown_container ${openDropdown ? 'display' : 'display_none'}`}>
         {isLoading && <div>Loading...</div>}
       <ul>
         {data?.map((item: AutocompleteItem) => (

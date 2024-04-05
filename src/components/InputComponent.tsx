@@ -15,7 +15,6 @@ const InputComponent: React.ForwardRefRenderFunction<
       ref={ref}
       value={value}
       type="text"
-      className="base_input"
       aria-autocomplete="list"
       aria-expanded="true"
       onChange={(e) => onChange(e.target.value)}
