@@ -8,7 +8,7 @@ interface State {
   amount: number;
 }
 
-export const useCustomAutocompleteData = create((set) => ({
+export const useAutocompleteData = create((set) => ({
   data: [],
   amount: 0,
   setItem: (item: AutocompleteItem) =>
