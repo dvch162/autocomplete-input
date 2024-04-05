@@ -1,6 +1,14 @@
 import { evaluate } from 'mathjs';
 import { AutocompleteItem } from "../App";
 
+
+export const fetchDataFromApi = async (query: string | undefined) => {
+    const url = "https://652f91320b8d8ddac0b2b62b.mockapi.io/autocomplete";
+    const response = await fetch(`${url}?name=${query}`);
+    const data = await response.json();
+    return data;
+  };
+
 export const symbols = ["+", "-", "*", "/"];
 
 export const calculateAmount = (tags: AutocompleteItem[]): number => {
