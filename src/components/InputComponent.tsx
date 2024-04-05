@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
 interface InputComponentProps {
   value: string;
@@ -6,7 +6,10 @@ interface InputComponentProps {
   onFocus: () => void;
 }
 
-    const InputComponent: React.ForwardRefRenderFunction<HTMLInputElement, InputComponentProps> = ({ value, onChange, onFocus }, ref) => {
+const InputComponent: React.ForwardRefRenderFunction<
+  HTMLInputElement,
+  InputComponentProps
+> = ({ value, onChange, onFocus }, ref) => {
   return (
     <input
       ref={ref}
@@ -20,7 +23,6 @@ interface InputComponentProps {
     />
   );
 };
-
 
 const ForwardedInputComponent = forwardRef(InputComponent);
 ForwardedInputComponent.displayName = 'InputComponent'; 
