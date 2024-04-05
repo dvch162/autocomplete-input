@@ -1,8 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useMemo } from "react";
+import "./App.css";
+// import { useQuery } from "react-query";
+import { useAutocompleteData } from "./hooks/useAutocompleteData";
+import { calculateAmount } from "./utils/utils";
+import { useAutocompleteQuery } from "./hooks/useAutocompleteQuery";
+import InputComponent from "./components/InputComponent";
+import TagListComponent from "./components/TagListComponent";
+import DropdownComponent from "./components/DropdownComponent";
+import ResultComponent from "./components/ResultComponent";
+import { useLogic } from "./hooks/useLogic";
 
 export type AutocompleteItem = {
   category: string;
@@ -12,32 +18,47 @@ export type AutocompleteItem = {
 };
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    inputValue,
+    openDropdown,
+    handleInputChange,
+    handleContainerClick,
+    handleItemClick,
+    handleTagRemove,
+    mainBoxRef,
+    inputRef,
+  } = useLogic();
+
+  const { data: selectedTags } = useAutocompleteData();
+
+  const { data, isLoading } = useAutocompleteQuery(inputValue);
+  const amount = useMemo(() => calculateAmount(selectedTags), [selectedTags]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div ref={mainBoxRef}>
+      <div className="container">
+        <div className="input_container" onClick={handleContainerClick}>
+          <div className="value_inputs_wrapper">
+            <TagListComponent tags={selectedTags} onRemove={handleTagRemove} />
+            <InputComponent
+              ref={inputRef}
+              value={inputValue}
+              onChange={handleInputChange}
+              onFocus={handleContainerClick}
+            />
+          </div>
+        </div>
+
+        <DropdownComponent
+          data={data}
+          isLoading={isLoading}
+          onItemClick={handleItemClick}
+          openDropdown={openDropdown}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <ResultComponent amount={amount} />
+    </div>
+  );
 }
 
 export default App;
